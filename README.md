@@ -6,6 +6,13 @@
 
 A NestJS library for managing asynchronous and synchronous messages with support for buses, handlers, channels, and consumers. This library simplifies building scalable and decoupled applications by facilitating robust message handling pipelines while ensuring flexibility and reliability.
 
+---
+## Documentation
+
+https://nestjstools.gitbook.io/nestjstools-messaging-docs
+
+---
+
 ## Installation
 
 ```bash
@@ -114,6 +121,46 @@ export class CreateUserHandler implements IMessageHandler<CreateUser>{
 3. **You're Done!**
    Once the message is published with the correct routing key, it will be automatically routed to the appropriate handler within the NestJS application.
 ---
+
+## 🏷️ Sending Custom SQS Message Attributes
+
+In addition to the required `messagingRoutingKey` header, you can include **custom attributes** in your SQS messages to enrich the message with metadata such as request IDs, user types, or priority levels.
+
+### Example: Sending a Message with Attributes
+
+```ts
+const exampleAttributes = {
+  requestId: {
+    DataType: "String",
+    StringValue: "req-" + Math.random().toString(36).substring(2, 10),
+  },
+  timestamp: {
+    DataType: "Number",
+    StringValue: Date.now().toString(),
+  },
+  userType: {
+    DataType: "String",
+    StringValue: "admin",
+  },
+  priority: {
+    DataType: "Number",
+    StringValue: "1",
+  },
+};
+
+this.sqsMessageBus.dispatch(
+  new RoutingMessage(
+    new CreateUser('John FROM Sqs'),
+    'my_app_command.create_user',
+    new AmazonSqsMessageOptions(exampleAttributes)
+  )
+);
+```
+
+> ⚠️ Don't forget that `messagingRoutingKey` must still be present — it's used to route the message to the correct handler.
+
+---
+
 
 ### Key Features:
 
