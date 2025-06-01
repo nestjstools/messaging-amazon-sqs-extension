@@ -2,7 +2,7 @@
     <image src="nestjstools-logo.png" width="400">
 </p>
 
-# @nestjstools/messaging-amazon-sqs -extension
+# @nestjstools/messaging-amazon-sqs-extension
 
 A NestJS library for managing asynchronous and synchronous messages with support for buses, handlers, channels, and consumers. This library simplifies building scalable and decoupled applications by facilitating robust message handling pipelines while ensuring flexibility and reliability.
 
@@ -32,11 +32,11 @@ yarn add @nestjstools/messaging @nestjstools/messaging-amazon-sqs-extension
 import { Module } from '@nestjs/common';
 import { MessagingModule } from '@nestjstools/messaging';
 import { SendMessageHandler } from './handlers/send-message.handler';
-import { MessagerAmazonSQSExtensionModule, AmazonSQSChannelConfig } from "@nestjstools/messager-amazon-sqs-extension";
+import { AmazonSqsChannelConfig, MessagingAmazonSqsExtensionModule } from '@nestjstools/messaging-amazon-sqs-extension';
 
 @Module({
   imports: [
-    MessagerAmazonSQSExtensionModule, // Importing the SQS extension module
+    MessagingAmazonSqsExtensionModule, // Importing the SQS extension module
     MessagingModule.forRoot({
       buses: [
         {
