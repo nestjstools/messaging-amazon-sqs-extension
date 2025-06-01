@@ -81,7 +81,7 @@ export class AppController {
   ) {}
 
   @Get('/sqs')
-  createUserAsyncViaPuSubBus(): string {
+  createUser(): string {
     this.sqsMessageBus.dispatch(new RoutingMessage(new CreateUser('John FROM SQS'), 'my_app_command.create_user'));
 
     return 'Message sent';
