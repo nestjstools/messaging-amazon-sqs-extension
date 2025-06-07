@@ -5,9 +5,10 @@ import { Injectable, OnApplicationShutdown } from '@nestjs/common';
 import { MessageConsumer } from '@nestjstools/messaging';
 import { ConsumerDispatchedMessageError } from '@nestjstools/messaging';
 import {
+  CreateQueueCommand,
   DeleteMessageCommand,
   MessageAttributeValue,
-  ReceiveMessageCommand,
+  ReceiveMessageCommand, SendMessageCommand,
 } from '@aws-sdk/client-sqs';
 
 @Injectable()
@@ -49,12 +50,43 @@ export class AmazonSqsMessagingConsumer implements IMessagingConsumer<AmazonSqsC
       }
     }
 
+    await this.createDeadLetterQueue(channel);
+
     processPollMessages();
 
     return Promise.resolve();
   }
 
   async onError(errored: ConsumerDispatchedMessageError, channel: AmazonSqsChannel): Promise<void> {
+    if (!channel.config.deadLetterQueue) {
+      return Promise.resolve();
+    }
+
+    const command = new SendMessageCommand({
+      QueueUrl: `${channel.config.queueUrl}_dead_letter`,
+      MessageBody: JSON.stringify(errored.dispatchedConsumerMessage.message),
+      MessageAttributes: {
+        messagingRoutingKey: {
+          DataType: "String",
+          StringValue: errored.dispatchedConsumerMessage.routingKey,
+        }
+      },
+    });
+
+    await channel.client.send(command);
+
+    return Promise.resolve();
+  }
+
+  private createDeadLetterQueue(channel: AmazonSqsChannel): Promise<void> {
+    if (!channel.config.deadLetterQueue) {
+      return Promise.resolve();
+    }
+
+    channel.client.send(new CreateQueueCommand({
+      QueueName: `${channel.config.queueName}_dead_letter`,
+    }));
+
     return Promise.resolve();
   }
 

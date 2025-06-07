@@ -10,6 +10,7 @@ export class AmazonSqsChannelConfig extends ChannelConfig {
   public readonly visibilityTimeout?: number;
   public readonly waitTimeSeconds?: number;
   public readonly autoCreate?: boolean;
+  public readonly deadLetterQueue?: boolean;
 
   constructor({
                 name,
@@ -20,6 +21,7 @@ export class AmazonSqsChannelConfig extends ChannelConfig {
                 waitTimeSeconds,
                 region,
                 autoCreate,
+                deadLetterQueue,
                 enableConsumer,
                 avoidErrorsForNotExistedHandlers,
                 middlewares,
@@ -42,6 +44,7 @@ export class AmazonSqsChannelConfig extends ChannelConfig {
     this.visibilityTimeout = visibilityTimeout ?? 20;
     this.waitTimeSeconds = waitTimeSeconds ?? 10;
     this.autoCreate = autoCreate ?? false;
+    this.deadLetterQueue = deadLetterQueue ?? false;
   }
 }
 

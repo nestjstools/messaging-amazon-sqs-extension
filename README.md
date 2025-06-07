@@ -57,7 +57,8 @@ import { AmazonSqsChannelConfig, MessagingAmazonSqsExtensionModule } from '@nest
           },
           maxNumberOfMessages: 3, // optional
           visibilityTimeout: 10, // optional 
-          waitTimeSeconds: 5, // Every 5 seconds consumer will pull 3 messages from queue - optional
+          waitTimeSeconds: 5, // Every 5 seconds consumer will pull 3 messages from queue - optional,
+          deadLetterQueue: false,
         }),
       ],
       debug: true, // Optional: Enable debugging for Messaging operations
@@ -177,17 +178,18 @@ this.sqsMessageBus.dispatch(
 ### AmazonSqsChannel
 
 #### **AmazonSqsChannelConfig**
-| **Property**              | **Description**                                                                                        | **Default Value** |
-| ------------------------- | ------------------------------------------------------------------------------------------------------ |-------------------|
-| **`name`**                | The name of the Amazon SQS channel (e.g., `'sqs-event'`).                                              |                   |
-| **`region`**              | The AWS region for the SQS queue (e.g., `'us-east-1'`).                                                |                   |
-| **`queueUrl`**            | The URL of the SQS queue (e.g., `'http://localhost:9324/queue/test_queue'`).                           |                   |
-| **`credentials`**         | AWS credentials for SQS (optional).                                                                    |                   |
-| **`enableConsumer`**      | Whether to enable message consumption (i.e., processing received messages).                            | `true`            |
-| **`autoCreate`**          | Automatically create the queue if it doesn’t exist.                                                    | `true`            |
-| **`maxNumberOfMessages`** | The maximum number of messages to retrieve from the queue in one request.                              | 1                 |
-| **`visibilityTimeout`**   | The time in seconds that the message will remain invisible to other consumers after being fetched.     | 20                |
-| **`waitTimeSeconds`**     | The amount of time (in seconds) for long polling. The consumer will wait up to this time for messages. | 10                |
+| **Property**              | **Description**                                                                                                                       | **Default Value** |
+|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------|-------------------|
+| **`name`**                | The name of the Amazon SQS channel (e.g., `'sqs-event'`).                                                                             |                   |
+| **`region`**              | The AWS region for the SQS queue (e.g., `'us-east-1'`).                                                                               |                   |
+| **`queueUrl`**            | The URL of the SQS queue (e.g., `'http://localhost:9324/queue/test_queue'`).                                                          |                   |
+| **`credentials`**         | AWS credentials for SQS (optional).                                                                                                   |                   |
+| **`enableConsumer`**      | Whether to enable message consumption (i.e., processing received messages).                                                           | `true`            |
+| **`autoCreate`**          | Automatically create the queue if it doesn’t exist.                                                                                   | `true`            |
+| **`maxNumberOfMessages`** | The maximum number of messages to retrieve from the queue in one request.                                                             | 1                 |
+| **`visibilityTimeout`**   | The time in seconds that the message will remain invisible to other consumers after being fetched.                                    | 20                |
+| **`waitTimeSeconds`**     | The amount of time (in seconds) for long polling. The consumer will wait up to this time for messages.                                | 10                |
+| **`deadLetterQueue`**     | When set to `true`, a dead-letter queue (DLQ) is automatically created. The DLQ name follows the pattern: `<queue_name>_dead_letter`. | `false`           |
 ---
 
 ## Real world working example with RabbitMQ & Redis - but might be helpful to understand how it works
