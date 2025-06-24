@@ -40,13 +40,13 @@ import { AmazonSqsChannelConfig, MessagingAmazonSqsExtensionModule } from '@nest
     MessagingModule.forRoot({
       buses: [
         {
-          name: 'sqs-event.bus',
-          channels: ['sqs-event'],
+          name: 'message.bus',
+          channels: ['sqs-channel'],
         },
       ],
       channels: [
         new AmazonSqsChannelConfig({
-          name: 'sqs-event',
+          name: 'sqs-channel',
           enableConsumer: true, // Enable if you want to consume messages
           region: 'us-east-1',
           queueUrl: 'http://localhost:9324/queue/test_queue', // ElasticMQ for local development
@@ -78,7 +78,7 @@ import { IMessageBus, MessageBus, RoutingMessage } from '@nestjstools/messaging'
 @Controller()
 export class AppController {
   constructor(
-    @MessageBus('sqs-event.bus') private sqsMessageBus: IMessageBus,
+    @MessageBus('message.bus') private sqsMessageBus: IMessageBus,
   ) {}
 
   @Get('/sqs')
@@ -180,7 +180,7 @@ this.sqsMessageBus.dispatch(
 #### **AmazonSqsChannelConfig**
 | **Property**              | **Description**                                                                                                                       | **Default Value** |
 |---------------------------|---------------------------------------------------------------------------------------------------------------------------------------|-------------------|
-| **`name`**                | The name of the Amazon SQS channel (e.g., `'sqs-event'`).                                                                             |                   |
+| **`name`**                | The name of the Amazon SQS channel (e.g., `'message.bus'`).                                                                            |                   |
 | **`region`**              | The AWS region for the SQS queue (e.g., `'us-east-1'`).                                                                               |                   |
 | **`queueUrl`**            | The URL of the SQS queue (e.g., `'http://localhost:9324/queue/test_queue'`).                                                          |                   |
 | **`credentials`**         | AWS credentials for SQS (optional).                                                                                                   |                   |
