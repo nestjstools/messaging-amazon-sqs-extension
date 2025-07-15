@@ -8,17 +8,19 @@ import { MessageAttributeValue } from '@aws-sdk/client-sqs/dist-types/models/mod
 
 @Injectable()
 export class AmazonSqsMessageBus implements IMessageBus {
-  constructor(
-    private readonly channel: AmazonSqsChannel,
-  ) {
-  }
+  constructor(private readonly channel: AmazonSqsChannel) {}
 
   async dispatch(message: RoutingMessage): Promise<object | void> {
     const messageOptions = message.messageOptions;
     let attributes: Record<string, MessageAttributeValue> = {};
 
-    if (messageOptions !== undefined && !(messageOptions instanceof AmazonSqsMessageOptions)) {
-      throw new Error(`Message options must be a ${AmazonSqsMessageOptions.name} object`);
+    if (
+      messageOptions !== undefined &&
+      !(messageOptions instanceof AmazonSqsMessageOptions)
+    ) {
+      throw new Error(
+        `Message options must be a ${AmazonSqsMessageOptions.name} object`,
+      );
     }
 
     if (messageOptions instanceof AmazonSqsMessageOptions) {
@@ -26,7 +28,7 @@ export class AmazonSqsMessageBus implements IMessageBus {
     }
 
     attributes.messagingRoutingKey = {
-      DataType: "String",
+      DataType: 'String',
       StringValue: message.messageRoutingKey,
     };
 
@@ -36,6 +38,6 @@ export class AmazonSqsMessageBus implements IMessageBus {
       MessageAttributes: attributes,
     });
 
-    await this.channel.client.send(command)
+    await this.channel.client.send(command);
   }
 }

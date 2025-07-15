@@ -13,26 +13,32 @@ export class AmazonSqsChannelConfig extends ChannelConfig {
   public readonly deadLetterQueue?: boolean;
 
   constructor({
-                name,
-                credentials,
-                queueUrl,
-                maxNumberOfMessages,
-                visibilityTimeout,
-                waitTimeSeconds,
-                region,
-                autoCreate,
-                deadLetterQueue,
-                enableConsumer,
-                avoidErrorsForNotExistedHandlers,
-                middlewares,
-                normalizer,
-              }: AmazonSqsChannelConfig) {
-    super(name, avoidErrorsForNotExistedHandlers, middlewares, enableConsumer, normalizer);
+    name,
+    credentials,
+    queueUrl,
+    maxNumberOfMessages,
+    visibilityTimeout,
+    waitTimeSeconds,
+    region,
+    autoCreate,
+    deadLetterQueue,
+    enableConsumer,
+    avoidErrorsForNotExistedHandlers,
+    middlewares,
+    normalizer,
+  }: AmazonSqsChannelConfig) {
+    super(
+      name,
+      avoidErrorsForNotExistedHandlers,
+      middlewares,
+      enableConsumer,
+      normalizer,
+    );
     let url;
     try {
       url = new URL(queueUrl);
     } catch (e) {
-      throw new Error(`Invalid queue url (${queueUrl})`)
+      throw new Error(`Invalid queue url (${queueUrl})`);
     }
 
     this.credentials = credentials;
