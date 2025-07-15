@@ -7,6 +7,5 @@ export class AmazonSqsMessageOptions implements MessageOptions {
 
   constructor(
     public readonly attributes: Record<string, MessageAttributeValue> = {},
-  ) {
-  }
+  ) {}
 }

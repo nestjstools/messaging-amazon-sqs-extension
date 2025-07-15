@@ -1470,10 +1470,10 @@
   dependencies:
     tslib "2.8.1"
 
-"@nestjstools/messaging@^2.11.0":
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/@nestjstools/messaging/-/messaging-2.11.0.tgz#b3f80e1f9eac24bf58887d41ec959c4f1c8612f9"
-  integrity sha512-kP8K8H3uUwkJafRnvGJ074a0sBNnEibDBqFHiUtz6PgTW2sRHtaDtFrPCVW0N40VzCRO86aNzFO0PTDNO9U2gA==
+"@nestjstools/messaging@^2.21.0":
+  version "2.21.0"
+  resolved "https://registry.yarnpkg.com/@nestjstools/messaging/-/messaging-2.21.0.tgz#2044b3e22a6676d1686d9e64ea41112ae9fbdf0c"
+  integrity sha512-FG9VgZVvpgK68jeDKkKKC0Q8jkVDjVbKDeLLE61+gf/eliLlk1enPVI68e+gUvLm/toEDyFInSqnL3R9qQDq+Q==
   dependencies:
     class-transformer "^0.5.1"
 
