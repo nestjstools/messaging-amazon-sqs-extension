@@ -1,6 +1,6 @@
 {
   "name": "@nestjstools/messaging-amazon-sqs-extension",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Extension to handle messages and dispatch them over Amazon SQS",
   "author": "Sebastian Iwanczyszyn",
   "private": false,
@@ -31,6 +31,7 @@
   "files": [
     "lib",
     "LICENSE",
+    "README.md",
     "package.json"
   ],
   "scripts": {
