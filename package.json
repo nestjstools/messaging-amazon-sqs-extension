@@ -16,14 +16,14 @@
     "url": "git+https://github.com/nestjstools/messaging-amazon-sqs-extension"
   },
   "keywords": [
-    "nestjs amazon sqs",
-    "amazon sqs nestjs",
-    "nestjs sqs messaging",
-    "nestjs message bus",
-    "nestjs service bus",
-    "nestjs microservices",
-    "event driven nestjs",
-    "aws sqs"
+    "nestjs",
+    "nestjstools",
+    "nestjstools messaging",
+    "amazon sqs",
+    "nestjs sqs",
+    "message bus",
+    "event driven",
+    "aws"
   ],
   "files": [
     "lib",
