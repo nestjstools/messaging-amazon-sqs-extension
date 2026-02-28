@@ -1,9 +1,12 @@
 import { AmazonSqsChannel } from '../channel/amazon-sqs.channel';
-import { ConsumerMessage, IMessagingConsumer } from '@nestjstools/messaging';
-import { ConsumerMessageDispatcher } from '@nestjstools/messaging';
+import {
+  ConsumerMessage,
+  IMessagingConsumer,
+  MessageConsumer,
+  ConsumerDispatchedMessageError,
+  ConsumerMessageBus,
+} from '@nestjstools/messaging';
 import { Injectable } from '@nestjs/common';
-import { MessageConsumer } from '@nestjstools/messaging';
-import { ConsumerDispatchedMessageError } from '@nestjstools/messaging';
 import {
   CreateQueueCommand,
   DeleteMessageCommand,
@@ -15,12 +18,11 @@ import {
 @Injectable()
 @MessageConsumer(AmazonSqsChannel)
 export class AmazonSqsMessagingConsumer
-  implements IMessagingConsumer<AmazonSqsChannel>
-{
+  implements IMessagingConsumer<AmazonSqsChannel> {
   private channel?: AmazonSqsChannel = undefined;
 
   async consume(
-    dispatcher: ConsumerMessageDispatcher,
+    dispatcher: ConsumerMessageBus,
     channel: AmazonSqsChannel,
   ): Promise<void> {
     this.channel = channel;
@@ -50,7 +52,7 @@ export class AmazonSqsMessagingConsumer
             >;
             const messageBody = message.Body as string;
             const routingKey = attrs.messagingRoutingKey.StringValue as string;
-            dispatcher.dispatch(
+            await dispatcher.dispatch(
               new ConsumerMessage(JSON.parse(messageBody), routingKey),
             );
             const deleteParams = {

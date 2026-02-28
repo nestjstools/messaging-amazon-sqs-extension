@@ -1,15 +1,25 @@
 <p align="center">
-    <image src="nestjstools-logo.png" width="400">
+    <image src="nestjstools-logo.png" width="400" alt="NestJSTools Logo" />
 </p>
 
-# @nestjstools/messaging-amazon-sqs-extension
+# NestJS Amazon SQS Messaging Extension – Scalable Message Bus for Distributed Systems
 
-A NestJS library for managing asynchronous and synchronous messages with support for buses, handlers, channels, and consumers. This library simplifies building scalable and decoupled applications by facilitating robust message handling pipelines while ensuring flexibility and reliability.
+Amazon SQS transport adapter for the **NestJSTools Messaging Library**, enabling scalable, fault-tolerant, and event-driven architectures in NestJS applications.
+
+This extension allows you to use **Amazon Simple Queue Service (SQS)** as a messaging channel within the NestJSTools Messaging ecosystem, supporting message buses, routing keys, handlers, consumers, and middleware - all with clean and strongly-typed NestJS integration.
+
+Designed for:
+
+* AWS microservices architectures
+* Event-driven NestJS systems
+* Distributed systems requiring reliable message processing
+* Cloud-native services running on Amazon Web Services
 
 ---
 ## Documentation
 
-https://nestjstools.gitbook.io/nestjstools-messaging-docs
+* https://docs.nestjstools.com/messaging
+* https://nestjstools.com
 
 ---
 
